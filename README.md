@@ -14,17 +14,4 @@ This web app uses a **Gaussian Mixture Model (GMM)** to segment customers based 
 - NumPy
 
 ### 🚀 Try it Live
-👉 [Click here to view the app](https://yourusername-yourrepo.streamlit.app)
-
-
-
-
-
-
-
-
-
-
-
-
-https://gmm-m-l-project-4wbk8lmhcncyimz5fb56uv.streamlit.app/
+👉 [Click here to view the app](https://gmm-m-l-project-4wbk8lmhcncyimz5fb56uv.streamlit.app/)
