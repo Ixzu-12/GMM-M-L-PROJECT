@@ -19,7 +19,16 @@ data_scaled = scaler.fit_transform(data)
 gmm = GaussianMixture(n_components=3, random_state=42)
 gmm.fit(data_scaled)
 clusters = gmm.predict(data_scaled)
+
+
 means = scaler.inverse_transform(gmm.means_).flatten()
+
+
+sorted_indices = np.argsort(means)  
+segment_labels = {}
+segment_labels[sorted_indices[0]] = "Low Spender"
+segment_labels[sorted_indices[1]] = "Mid Spender"
+segment_labels[sorted_indices[2]] = "High Spender"
 
 
 st.set_page_config(page_title="Customer Segmentation (GMM)", page_icon="💰", layout="centered")
@@ -31,8 +40,8 @@ This app segments customers based on their **spending behavior** using a **Gauss
 
 
 st.subheader("📊 Cluster Centers (Approx. Spendings):")
-for i, m in enumerate(means):
-    st.write(f"**Cluster {i}** → ₹{m:.2f}")
+for cluster_id in sorted_indices:
+    st.write(f"**{segment_labels[cluster_id]}** → ₹{means[cluster_id]:.2f}")
 
 
 st.subheader("🔍 Predict Customer Segment")
@@ -42,12 +51,7 @@ if st.button("Predict Segment"):
     user_input = np.array([[spending]])
     user_input_scaled = scaler.transform(user_input)
     prediction = gmm.predict(user_input_scaled)[0]
-
-   
-    segment_labels = {0: "Low Spender", 1: "Mid Spender", 2: "High Spender"}
-    label = segment_labels[prediction]
-
-    st.success(f"Predicted Segment: **Cluster {prediction} ({label})**")
+    st.success(f"Predicted Segment: **{segment_labels[prediction]}**")
 
 
 st.subheader("📈 Cluster Visualization")
